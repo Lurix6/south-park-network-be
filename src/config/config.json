@@ -1,0 +1,13 @@
+{
+  "dev": {
+    "username": "root",
+    "password": "qwertY123#",
+    "database": "southParkNetworkDev",
+    "host": "localhost",
+    "port": "3307",
+    "dialect": "mysql",
+    "dialectOptions": {
+      "timezone": "Etc/GMT+0"
+    }
+  }
+}
