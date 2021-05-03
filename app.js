@@ -1,7 +1,7 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const { db } = require('./src/db');
-const port = 3002
+const port = 5000
 const app = express()
 const registerApi = require('./src/api')
 

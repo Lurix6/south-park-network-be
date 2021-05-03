@@ -6,8 +6,8 @@ class RepositortFactory {
     this.db = db
   }
 
-  createUserReposetory() {
-    return new UserReposetory(this.db.user)
+  createUserRepository() {
+    return new UserReposetory(this.db.User)
   }
 }
 

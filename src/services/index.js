@@ -1,4 +1,5 @@
 const { RepositoriesFactory } = require('../db');
+const AuthService = require('./services/authService');
 
 class ServicesFactory {
   constructor(repositoriesFactory){
@@ -6,8 +7,9 @@ class ServicesFactory {
   }
 
   createUserFactory() {
-    return this.repositoriesFactory(this.createUserFactory)
+    const userRepository = this.repositoriesFactory.createUserRepository()
+    return new AuthService(userRepository)
   }
 }
 
-module.exports = ServicesFactory(RepositoriesFactory)
+module.exports = new ServicesFactory(RepositoriesFactory)

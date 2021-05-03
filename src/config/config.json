@@ -1,7 +1,7 @@
 {
   "dev": {
     "username": "root",
-    "password": "qwertY123#",
+    "password": "12345678",
     "database": "southParkNetworkDev",
     "host": "localhost",
     "port": "3307",

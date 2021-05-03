@@ -19,6 +19,10 @@ class BaseRepository {
   }
 
   async createEntity(entity, options) {
+    console.log('create')
+    console.log(
+      entity, options
+    )
     return this.source.create(entity, options);
   }
 
