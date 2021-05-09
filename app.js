@@ -15,7 +15,6 @@ app.use(bodyParser.urlencoded({
 registerApi(app)
 
 db.sequelize.sync().then(() => {
-  console.log('sdjahjkds')
 }).then(() => {
   app.listen(port)
 });

@@ -1,13 +1,20 @@
 {
   "dev": {
     "username": "root",
-    "password": "12345678",
+    "password": "qwerty123!",
     "database": "southParkNetworkDev",
     "host": "localhost",
-    "port": "3307",
+    "port": "3306",
     "dialect": "mysql",
     "dialectOptions": {
       "timezone": "Etc/GMT+0"
+    }
+  },
+  "filePath": {
+    "staticFiles": "uploads",
+    "folders": {
+      "userAvatar": "users",
+      "chinpokomonsAvatar": "chinpokomons"
     }
   }
 }
