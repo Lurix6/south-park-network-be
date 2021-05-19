@@ -1,4 +1,3 @@
-const { response } = require('express');
 const ServicesFactory = require('../../services');
 
 async function getUsers(req, res, next){

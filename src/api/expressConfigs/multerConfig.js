@@ -28,31 +28,22 @@ function staticPath(key) {
 function uploader(key) {
   const items = path.join(config.filePath.staticFiles, staticPath(key));
 
-
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, items);
     },
     filename: (req, file, cb) => {
       const name = identifier(req, key).toString();
-      console.log(name)
-      console.log(FileHelpers)
 
-      if (FileHelpers.existsSync(path.join(items, `${name}.png`))) {
-        FileHelpers.removeSync(path.join(items, `${name}.png`));
-      }
-      if (FileHelpers.existsSync(path.join(items, `${name}.jpg`))) {
-        FileHelpers.removeSync(path.join(items, `${name}.jpg`));
-      }
-      if (FileHelpers.existsSync(path.join(items, `${name}.jpeg`))) {
-        FileHelpers.removeSync(path.join(items, `${name}.jpeg`));
-      }
-      if (FileHelpers.existsSync(path.join(items, `${name}.gif`))) {
-        FileHelpers.removeSync(path.join(items, `${name}.gif`));
-      }
-      if (FileHelpers.existsSync(path.join(items, `${name}.xlsx`))) {
-        FileHelpers.removeSync(path.join(items, `${name}.xlsx`));
-      }
+      // if (FileHelpers.existsSync(path.join(items, `${name}.png`))) {
+      //   FileHelpers.removeSync(path.join(items, `${name}.png`));
+      // }
+      // if (FileHelpers.existsSync(path.join(items, `${name}.jpg`))) {
+      //   FileHelpers.removeSync(path.join(items, `${name}.jpg`));
+      // }
+      // if (FileHelpers.existsSync(path.join(items, `${name}.jpeg`))) {
+      //   FileHelpers.removeSync(path.join(items, `${name}.jpeg`));
+      // }
 
       cb(null, name + path.extname(file.originalname).toLowerCase());
     },

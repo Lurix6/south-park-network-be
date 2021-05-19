@@ -8,53 +8,36 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Chinpokomon',
     }
   
-    class User extends Model {
-      updateModel(user) {
-        this.firstName = user.firstName || this.firstName;
-        this.lastName = user.lastName || this.lastName;
-        this.userName = user.userName || this.userName;
-        this.roleId = user.roleId || this.roleId;
-        this.password = user.password || this.password;
-        this.salt = user.salt || this.salt;
-        this.resetPasswordToken = user.resetPasswordToken || this.resetPasswordToken;
-        this.gender = user.gender || this.gender
+    class Chinpokomon extends Model {
+      updateModel(chinpokomon) {
+        this.name = chinpokomon.name || this.name;
+        this.location = chinpokomon.location || this.location;
+        this.img = chinpokomon.img || this.img;
       }
     }
   
-    User.init(
+    Chinpokomon.init(
       {
         id: {
           type: DataTypes.INTEGER,
           primaryKey: true,
           autoIncrement: true,
         },
-        userName: {
+        name: {
           type: DataTypes.STRING,
           allowNull: false,
         },
-        password: {
+        location: {
           type: DataTypes.STRING,
           allowNull: false,
         },
-        salt: {
+        img: {
           type: DataTypes.STRING,
           allowNull: false,
-        },
-        firstName: {
-          type: DataTypes.STRING,
-          allowNull: true,
-        },
-        lastName: {
-          type: DataTypes.STRING,
-          allowNull: true,
-        },
-        gender: {
-          type: DataTypes.STRING,
-          allowNull: true,
-        },
+        }
       },
       options,
     )
   
-    return User
+    return Chinpokomon
   }

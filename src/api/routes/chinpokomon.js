@@ -4,11 +4,11 @@ const ChinpokomonController = require('../controllers/ChinpokomonController')
 
 const upload = ChinpokomonUpload();
 
-router.get('/', async (req, res) => {
-  res.send('chinpokomons')
-})
+router.get('/', ChinpokomonController.getChinpokomons)
 
-router.put('/', upload.single('avatar'), ChinpokomonController.createChinpokomon
-)
+router.get('/:id', ChinpokomonController.getChinpokomon) 
+
+router.put('/', upload.single('avatar'), ChinpokomonController.createChinpokomon)
+
 
 module.exports = router
