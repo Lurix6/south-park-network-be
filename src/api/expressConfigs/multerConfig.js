@@ -1,7 +1,6 @@
 const multer = require('multer');
 const path = require('path');
 const config = require('../../config/config.json');
-const { FileHelpers } = require('../../common/helpers');
 
 // eslint-disable-next-line consistent-return
 function identifier(req, key) {

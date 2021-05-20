@@ -1,20 +1,29 @@
-const bodyParser = require('body-parser')
 const express = require('express')
-const { db } = require('./src/db');
+const mongoose = require('mongoose')
 const port = 5000
 const app = express()
 const registerApi = require('./src/api')
 
-// Use Node.js body parser middleware
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({
-  extended: true
-}))
 app.use('/uploads',express.static('uploads'))
+app.use(express.json())
+app.use(
+  express.urlencoded({
+    extended: true
+  })
+)
 
-registerApi(app)
+const options = {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true 
+}
 
-db.sequelize.sync().then(() => {
-}).then(() => {
+mongoose.connect('mongodb+srv://root:qwerty123!@cluster0.1v28u.mongodb.net/southParkNetwork', options)
+.then(() => {
+  console.log('MongoDB connected')
+  registerApi(app)
   app.listen(port)
-});
+})
+.catch((e) => {
+  console.error(e)
+})

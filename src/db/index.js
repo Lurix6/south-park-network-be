@@ -1,7 +1,7 @@
-const db = require('./models');
-const RepositoriesFactory = require('./repositories')
+const User = require('./models/User')
+const Chinpokomon = require('./models/Chinpokomon')
 
 module.exports = {
-  db,
-  RepositoriesFactory,
-};
+  User,
+  Chinpokomon
+}
