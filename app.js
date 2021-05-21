@@ -2,12 +2,13 @@ const express = require('express')
 const mongoose = require('mongoose')
 const port = process.env.PORT || 5000
 const cors = require('cors')
+const corsSettings = require('./src/config/corsConfig')
 const app = express()
 const registerApi = require('./src/api')
 
 app.use('/uploads', express.static('uploads'))
 app.use(express.json())
-app.use(cors()) // Use this after the variable declaration
+app.use(cors(corsSettings)) // Use this after the variable declaration
 app.use(
   express.urlencoded({
     extended: true
