@@ -15,10 +15,15 @@ async function getChinpokomon(req, res, next){
 }
 
 async function createChinpokomon(req, res, next){
-  const { body: { name, location }, file: { path } } = req;
-  const chinpokomon = new Chinpokomon({name, location, img: path})
-  await chinpokomon.save()
-  res.send(chinpokomon)
+  try {
+    const { body: { name, location }, file: { path } } = req;
+    const chinpokomon = new Chinpokomon({name, location, img: path})
+    await chinpokomon.save()
+    res.send(chinpokomon)
+  } catch (error) {
+    res.status(500).json({message: error})
+  }
+
 }
 
 module.exports = { getChinpokomons, createChinpokomon, getChinpokomon }
