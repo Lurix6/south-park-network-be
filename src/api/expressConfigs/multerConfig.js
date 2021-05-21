@@ -26,10 +26,9 @@ function staticPath(key) {
 
 function uploader(key) {
   const items = path.join(config.filePath.staticFiles, staticPath(key));
-
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(new Error('Destination error'), items);
+      cb(null, items);
     },
     filename: (req, file, cb) => {
       const name = identifier(req, key).toString();
@@ -44,7 +43,7 @@ function uploader(key) {
       //   FileHelpers.removeSync(path.join(items, `${name}.jpeg`));
       // }
 
-      cb(new Error('File name error'), name + path.extname(file.originalname).toLowerCase());
+      cb(null, name + path.extname(file.originalname).toLowerCase());
     },
   });
 
@@ -61,13 +60,27 @@ function uploader(key) {
   };
 
   const upload = multer({
-    limits: { fieldSize: 25 * 1024 * 1024 },
-    dest: items,
-    storage,
-    fileFilter,
+  //  limits: { fieldSize: 25 * 1024 * 1024 },
+  storage,
+ //   fileFilter,
   });
 
   return upload;
+}
+
+function uploaderTwo() {
+  const items = path.join(config.filePath.staticFiles, 'chinpokomons');
+
+  const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/chinpokomons')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now()+'.png')
+    }
+  })
+   
+  return multer({ storage: storage })
 }
 
 function UserUpload() {

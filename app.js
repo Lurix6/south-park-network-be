@@ -4,7 +4,7 @@ const port = process.env.PORT || 5000
 const app = express()
 const registerApi = require('./src/api')
 
-app.use('/uploads',express.static('uploads'))
+app.use('/uploads', express.static('uploads'))
 app.use(express.json())
 app.use(
   express.urlencoded({
