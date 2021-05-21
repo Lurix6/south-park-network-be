@@ -1,6 +1,6 @@
 const { UserRouter } = require('./routes')
 const { AuthRouter } = require('./routes')
-const { BaseRoute } = require('./routes')
+const { BaseRoute } = require('./')
 const { CollectiblesRouter } = require('./routes')
 
 function registerApi(app) {

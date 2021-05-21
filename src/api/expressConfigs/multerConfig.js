@@ -53,10 +53,7 @@ function uploader(key) {
 
     if (ext.indexOf('jpg') !== -1
       || ext.indexOf('jpeg') !== -1
-      || ext.indexOf('png') !== -1
-      || ext.indexOf('gif') !== -1
-      || file.mimetype.indexOf('spreadsheetml') !== -1
-      || file.mimetype.indexOf('application') !== -1) {
+      || ext.indexOf('png') !== -1) {
       cb(null, true);
     } else {
       cb(new Error('File format should be PNG,JPG,JPEG'), false);
