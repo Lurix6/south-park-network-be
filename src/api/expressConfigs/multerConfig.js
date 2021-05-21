@@ -25,49 +25,55 @@ function staticPath(key) {
 }
 
 function uploader(key) {
-  const items = path.join(config.filePath.staticFiles, staticPath(key));
+  try {
+    const items = path.join(config.filePath.staticFiles, staticPath(key));
 
-  const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, items);
-    },
-    filename: (req, file, cb) => {
-      const name = identifier(req, key).toString();
+    const storage = multer.diskStorage({
+      destination: (req, file, cb) => {
+        cb(null, items);
+      },
+      filename: (req, file, cb) => {
+        const name = identifier(req, key).toString();
+  
+        // if (FileHelpers.existsSync(path.join(items, `${name}.png`))) {
+        //   FileHelpers.removeSync(path.join(items, `${name}.png`));
+        // }
+        // if (FileHelpers.existsSync(path.join(items, `${name}.jpg`))) {
+        //   FileHelpers.removeSync(path.join(items, `${name}.jpg`));
+        // }
+        // if (FileHelpers.existsSync(path.join(items, `${name}.jpeg`))) {
+        //   FileHelpers.removeSync(path.join(items, `${name}.jpeg`));
+        // }
+  
+        cb(null, name + path.extname(file.originalname).toLowerCase());
+      },
+    });
+  
+    const fileFilter = (req, file, cb) => {
+      const ext = path.extname(file.originalname);
+  
+      if (ext.indexOf('jpg') !== -1
+        || ext.indexOf('jpeg') !== -1
+        || ext.indexOf('png') !== -1) {
+        cb(null, true);
+      } else {
+        cb(new Error('File format should be PNG,JPG,JPEG'), false);
+      }
+    };
+  
+    const upload = multer({
+      limits: { fieldSize: 25 * 1024 * 1024 },
+      dest: items,
+      storage,
+      fileFilter,
+    });
+  
+    return upload;
 
-      // if (FileHelpers.existsSync(path.join(items, `${name}.png`))) {
-      //   FileHelpers.removeSync(path.join(items, `${name}.png`));
-      // }
-      // if (FileHelpers.existsSync(path.join(items, `${name}.jpg`))) {
-      //   FileHelpers.removeSync(path.join(items, `${name}.jpg`));
-      // }
-      // if (FileHelpers.existsSync(path.join(items, `${name}.jpeg`))) {
-      //   FileHelpers.removeSync(path.join(items, `${name}.jpeg`));
-      // }
 
-      cb(null, name + path.extname(file.originalname).toLowerCase());
-    },
-  });
-
-  const fileFilter = (req, file, cb) => {
-    const ext = path.extname(file.originalname);
-
-    if (ext.indexOf('jpg') !== -1
-      || ext.indexOf('jpeg') !== -1
-      || ext.indexOf('png') !== -1) {
-      cb(null, true);
-    } else {
-      cb(new Error('File format should be PNG,JPG,JPEG'), false);
-    }
-  };
-
-  const upload = multer({
-    limits: { fieldSize: 25 * 1024 * 1024 },
-    dest: items,
-    storage,
-    fileFilter,
-  });
-
-  return upload;
+  } catch (error) {
+    console.error('My error -- ', error )
+  }
 }
 
 function UserUpload() {
