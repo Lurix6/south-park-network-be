@@ -16,8 +16,8 @@ async function getChinpokomon(req, res, next){
 
 async function createChinpokomon(req, res, next){
   try {
-    const { body: { name, location }, file: { path } } = req;
-    const chinpokomon = new Chinpokomon({name, location, img: path})
+    const { body: { name, location } } = req;
+    const chinpokomon = new Chinpokomon({name, location, img:'jjjjj'})
     await chinpokomon.save()
     res.send(chinpokomon)
   } catch (error) {
