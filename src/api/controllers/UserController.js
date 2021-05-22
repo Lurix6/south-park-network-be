@@ -54,7 +54,7 @@ async function login(req, res, next){
     secret,
     { expiresIn: '1h' }
   )
-   res.json({token, userId: id})
+   res.json({token, user})
 }
 
 module.exports = { getUsers, registerUser, login }
