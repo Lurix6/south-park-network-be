@@ -2,12 +2,10 @@ const { User } = require('../../db/models/index')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { secret } = require('../../config/config')
-async function getUsers(req, res, next){
-  // const userServices = ServicesFactory.createUserFactory()
-  // const result = await userServices.getAll()
-  // res.send(result.items)
 
-  res.send('getUsers')
+async function getCurrent(req, res, next){
+  const user = await User.findById(req.user.userId, {password: 0})
+  res.send(user)
 }
 
 async function getUser(req, res, next){
@@ -52,9 +50,9 @@ async function login(req, res, next){
   const { id } = user;
   const token = jwt.sign({ userId: id, email },
     secret,
-    { expiresIn: '1h' }
+    { expiresIn: '1h', userId: id }
   )
-   res.json({token, user})
+   res.json({token})
 }
 
-module.exports = { getUsers, registerUser, login }
+module.exports = { getCurrent, getUser, registerUser, login }

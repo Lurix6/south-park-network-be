@@ -1,8 +1,7 @@
 const router = require('express').Router()
-const {} = require('../controllers')
+const { UserControler } = require('../controllers')
 
-router.get('/current', async (req, res) => {
-  res.send('getCurrent')
-})
+router.get('/current', UserControler.getCurrent)
+router.get('/:id', UserControler.getUser)
 
 module.exports = router
