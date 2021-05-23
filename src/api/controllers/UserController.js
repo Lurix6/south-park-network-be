@@ -1,4 +1,5 @@
 const { User } = require('../../db/models/index')
+const { ObjectID } = require('mongodb')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { secret } = require('../../config/config')
@@ -11,6 +12,20 @@ async function getCurrent(req, res, next){
 
 async function getUser(req, res, next){
   res.send('getUser')
+}
+
+async function updateUser(req, res, next){
+  try {
+    const { params: { id }, body} = req
+    await User.updateOne(
+			 {_id: id},
+			{ $set: body })
+    const user = await User.findById(id, { password: 0 })  
+
+    res.status(200).send(user)
+  } catch (error) {
+    res.status(500).json({message: error})
+  }
 }
 
 async function registerUser(req, res, next){
@@ -59,4 +74,4 @@ async function login(req, res, next){
    res.json({token})
 }
 
-module.exports = { getCurrent, getUser, registerUser, login }
+module.exports = { getCurrent, getUser, registerUser, login, updateUser }
