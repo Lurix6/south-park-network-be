@@ -5,6 +5,7 @@ const { secret } = require('../../config/config')
 
 async function getCurrent(req, res, next){
   const user = await User.findById(req.user.userId, {password: 0})
+  
   res.send(user)
 }
 
@@ -14,19 +15,22 @@ async function getUser(req, res, next){
 
 async function registerUser(req, res, next){
   try {
-    const { email, password } = req.body;
-
+    const { email, password } = req.body
     const candidate = await User.findOne({email})
 
     if(candidate) {
-      res.status(400).json({message: 'Email alrady exist'})
+      return res.status(400).json({message: 'Email alrady exist'})
     }
 
     const hashPassword = await bcrypt.hash(password, 12)
-    const user = new  User({email, password: hashPassword})
+    const user = new User({email, password: hashPassword})
 
+    const token = jwt.sign({ userId: user._id },
+      secret,
+      { expiresIn: '1h' }
+    )
     await user.save()
-    res.status(400).json({message: 'User was created!!'})
+    res.status(200).json({token})
 
   } catch (error) {
     res.status(500).json({message: error})

@@ -9,6 +9,10 @@ const schema = new Schema({
     type: String,
     required: false
   },
+  avatarUrl: {
+    type: String,
+    required: false
+  },
   gender: {
     type: String,
     required: false
@@ -27,11 +31,13 @@ const schema = new Schema({
   },
   netWorth: {
     type: Number,
-    required: false
+    required: false,
+    default: 0,
   },
   level: {
     type: Number,
-    required: false
+    required: false,
+    default: 1
   },
   experience: {
     type: Number,
@@ -39,11 +45,31 @@ const schema = new Schema({
   },
   hp: {
     type: Number,
-    required: false
+    required: false,
+    default: 100
   },
   mana: {
     type: Number,
-    required: false
+    required: false,
+    default: 100
+  },
+  hpMax: {
+    type: Number,
+    required: false,
+    default: 100
+  },
+  manaMax: {
+    type: Number,
+    required: false,
+    default: 100
+  },
+  xp: {
+    type: Object,
+    required: false,
+    default: {
+      current: 0,
+      max: 150
+    } 
   },
   email: {
     type: String,
