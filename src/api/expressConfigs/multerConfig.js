@@ -68,21 +68,6 @@ function uploader(key) {
   return upload;
 }
 
-function uploaderTwo() {
-  const items = path.join(config.filePath.staticFiles, 'chinpokomons');
-
-  const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads/chinpokomons')
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now()+'.png')
-    }
-  })
-   
-  return multer({ storage: storage })
-}
-
 function UserUpload() {
   return uploader('user');
 }

@@ -1,5 +1,4 @@
 const { User } = require('../../db/models/index')
-const { ObjectID } = require('mongodb')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { secret } = require('../../config/config')
@@ -24,6 +23,23 @@ async function updateUser(req, res, next){
 
     res.status(200).send(user)
   } catch (error) {
+    res.status(500).json({message: error})
+  }
+}
+
+async function updateUserAvatar(req, res, next){
+  try {
+    const {user: { userId }, file: { path }} = req
+    
+    await User.updateOne(
+			 {_id: userId},
+			{ $set: {avatarUrl: path} })
+    
+    const user = await User.findById(userId, { password: 0})
+
+    res.status(200).send(user)
+  } catch (error) {
+    console.log(error)
     res.status(500).json({message: error})
   }
 }
@@ -74,4 +90,4 @@ async function login(req, res, next){
    res.json({token})
 }
 
-module.exports = { getCurrent, getUser, registerUser, login, updateUser }
+module.exports = { getCurrent, getUser, registerUser, login, updateUser, updateUserAvatar }
